@@ -22,7 +22,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
     
-    pitch = db.relationship('Pitch',backref = 'users',lazy="dynamic")
+    blog = db.relationship('blog',backref = 'users',lazy="dynamic")
     
     comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
     
@@ -30,5 +30,57 @@ class User(UserMixin, db.Model):
         db.session.add(self)
         db.session.commit()
         
+    @property
+    def password(self):
+        raise AttributeError('You cannot read the password attribute')
+
+    @password.setter
+    def password(self,password):
+        self.pass_secure = generate_password_hash(password)
+
+    def verify_password(self,password):
+        return check_password_hash(self.pass_secure,password)
+        
     def __repr__(self):
         return f'User {self.username}'
+    
+class Blog(db.Model):
+    __tablename__ = 'blogs'
+    
+    id = db.Column(db.Integer,primary_key = True)
+    blog_title = db.Column(db.String)
+    blog_content = db.Column(db.String(1000))
+    category = db.Column(db.String)
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    likes = db.Column(db.Integer)
+    dislikes = db.Column(db.Integer)
+
+    comments = db.relationship('Comment',backref =  'blog_id',lazy = "dynamic")
+    
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_blogs(cls,category):
+        blogs = blog.query.filter_by(category=category).all()
+        return blogs
+
+    @classmethod
+    def get_blog(cls,id):
+        blog = blog.query.filter_by(id=id).first()
+
+        return blog
+
+    @classmethod
+    def count_blogs(cls,uname):
+        user = User.query.filter_by(username=uname).first()
+        blogs = blog.query.filter_by(user_id=user.id).all()
+
+        blogs_count = 0
+        for blog in blogs:
+            blogs_count += 1
+
+        return blogs_count
+    
