@@ -3,7 +3,7 @@ from . import main
 from .forms import BlogForm
 from ..models import User 
 from flask_login import login_required, current_user
-from ..__ini__ import db
+from .. import db
 
 @main.route('/')
 def index():
@@ -55,5 +55,25 @@ def blog(id):
 
         return redirect("/blog/{blog_id}".format(blog_id=blog.id))
     
-    return render_template("blog.html", blog = blog, date = posted_date)
+    comment_form = CommentForm()
+    if comment_form.validate_on_submit():
+        comment = comment_form.text.data
+
+        new_comment = Comment(comment = comment,user = current_user,blog_id = blog)
+
+        new_comment.save_comment()
+
+
+    comments = Comment.get_comments(blog)
+    
+    return render_template("blog.html", blog = blog, date = posted_date, comment_form = comment_form, comments = comments)
+
+@main.route('/user/<uname>/blogs')
+def user_blogs(uname):
+    user = User.query.filter_by(username=uname).first()
+    blogs = Blog.query.filter_by(user_id = user.id).all()
+    blogs_count = Blog.count_blogs(uname)
+    user_joined = user.date_joined.strftime('%b,%d,%y')
+    
+    return render_template("profile/blogs.html",user = user, blogs = blogs, blogs_count= blogs_count,date= user_joined)
 

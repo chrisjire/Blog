@@ -1,5 +1,4 @@
-from app.__ini__ import create_app
-from app.__ini__ import db
+from app import create_app, db
 from flask_script import Manager,Server
 from app.models import User, Blog
 from  flask_migrate import Migrate, MigrateCommand
