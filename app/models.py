@@ -22,7 +22,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
     
-    blog = db.relationship('blog',backref = 'users',lazy="dynamic")
+    blog = db.relationship('Blog',backref = 'users',lazy="dynamic")
     
     comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
     
@@ -92,4 +92,21 @@ class Role(db.Model):
     users = db.relationship('User',backref = 'role',lazy="dynamic") 
 
     def __repr__(self):
-        return f'User {self.name}'  
+        return f'User {self.name}'
+    
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key = True)
+    comment = db.Column(db.String(1000))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    blog = db.Column(db.Integer,db.ForeignKey("blogs.id"))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls,blog):
+        comments = Comment.query.filter_by(blog_id=blog).all()
+        return comments

@@ -55,5 +55,5 @@ def blog(id):
 
         return redirect("/blog/{blog_id}".format(blog_id=blog.id))
     
-    return render_template("pitch.html", pitch = pitch, date = posted_date)
+    return render_template("blog.html", blog = blog, date = posted_date)
 
