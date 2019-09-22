@@ -34,7 +34,7 @@
                     <a class="navbar-brand nav-link dropdown-item" href="#" style="color:black; font-weight:bolder;">Sign out</a></<a>
                     {% else %}
                     <a class="navbar-brand nav-link dropdown-item" href="#" style="color:black; font-weight:bolder;">Log in</a></<a>
-                    <a class="navbar-brand nav-link dropdown-item" href="#" style="color:black; font-weight:bolder;">Sign Up</a></<a>
+                    <a class="navbar-brand nav-link dropdown-item" href="{{url_for('auth.register')}}" style="color:black; font-weight:bolder;">Sign Up</a></<a>
                     {%endif%}
                 </ul>
             </div>
