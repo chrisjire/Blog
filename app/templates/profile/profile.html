@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="container" style="background-color: white; margin-top: 50px;">
+<div class="card">
+<!-- displaying  Username-->
+<div class="card-title" style="text-align: center">
+<h3> {{user.username| capitalize}} </h3>
+<hr>
+<!--Displaying user bio-->
+{% if user.bio %}
+    <p class="card-text"> {{user.bio}}</p>
+    <hr>
+{%else%}
+    <p class="card-text"> {{user.username| capitalize}} has no bio </p>
+    <hr>
+{% endif %}
+</div>
+
+<div>
+{% if user == current_user %}
+    <a class="mt-2 pt-2 btn btn-outline-info" href="#">Edit profile</a>
+{% endif %}
+</div>
+<br>
+<!--Display profile photo-->
+<div class="card">
+
+{% if user.profile_pic_path %}
+<img src="#" alt="" class="img-thumbnail card-img-top">
+{%else%}
+<p class="card-title">No profile picture</p>
+{% endif %}
+
+{% if user == current_user %}
+<form class="mt-2 pt-2"  action="#" method="post" enctype = "multipart/form-data">
+
+<input class="form-control-file" type="file"  name="photo" class="form-control" required>
+<input class="mt-2 pt-2 btn btn-outline-info" type="submit">
+</form>
+{% endif %}
+</div>
+</div>
+</div>
+
+{% endblock %}

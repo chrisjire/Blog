@@ -1,9 +1,23 @@
 {% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+<!-- Styles block -->
 
-{% block content %}
-    <div class="container">
-        <p>hello</p>
+
+<!-- Content block -->
+{%block content%}
+<div class="jumbotron text-center" style="color: black; padding: 55px 25px; font-family: 'Monoton', cursive;">
+    <h1>Blog Shop</h1>
+</div>
+
+<div class="all-blogs">
+        <span style="color:gainsboro;">All  are displayed below</span>
+            <hr> 
+
+            {{macro.displayBlogs(blogs)}}
     </div>
+<div class="container" style="padding-bottom: 20px;">
+    <a href="{{url_for('main.new_blog')}}" class="btn btn-success">Write Blog</a>
+</div>
 
 
-{% endblock %}
+{%endblock%}

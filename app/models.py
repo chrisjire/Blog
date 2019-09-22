@@ -21,7 +21,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
     
-    blog = db.relationship('Blog',backref = 'users',lazy="dynamic")
+    blogs = db.relationship('Blog',backref = 'users',lazy="dynamic")
     
     comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
     
@@ -48,8 +48,8 @@ class Blog(db.Model):
     
     id = db.Column(db.Integer,primary_key = True)
     blog_title = db.Column(db.String)
-    blog_content = db.Column(db.String(1000))
-    category = db.Column(db.String)
+    blog_content = db.Column(db.String(8000))
+    username =  db.Column(db.String)
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     likes = db.Column(db.Integer)
@@ -62,20 +62,19 @@ class Blog(db.Model):
         db.session.commit()
 
     @classmethod
-    def get_blogs(cls,category):
-        blogs = blog.query.filter_by(category=category).all()
-        return blogs
+    def get_all_blogs(cls):
+        return Blog_query_all()
 
     @classmethod
     def get_blog(cls,id):
-        blog = blog.query.filter_by(id=id).first()
+        blog = Blog.query.filter_by(id=id).first()
 
         return blog
 
     @classmethod
     def count_blogs(cls,uname):
         user = User.query.filter_by(username=uname).first()
-        blogs = blog.query.filter_by(user_id=user.id).all()
+        blogs = Blog.query.filter_by(user_id=user.id).all()
 
         blogs_count = 0
         for blog in blogs:

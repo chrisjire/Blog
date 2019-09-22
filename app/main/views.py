@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, abort  
 from . import main  
-from .forms import BlogForm
-from ..models import User 
+from .forms import BlogForm, CommentForm
+from ..models import User, Comment , Blog
 from flask_login import login_required, current_user
 from .. import db
 
@@ -22,10 +22,9 @@ def new_blog():
     if blog_form.validate_on_submit():
         title = blog_form.title.data
         blog = blog_form.text.data
-        category = blog_form.category.data
 
         # Updated blog instance
-        new_blog = Blog(blog_title=title,blog_content=blog,category=category,user=current_user,likes=0,dislikes=0)
+        new_blog = Blog(blog_title=title,blog_content=blog,username=current_user.username,likes=0,dislikes=0)
 
         # Save blog method
         new_blog.save_blog()
@@ -77,3 +76,11 @@ def user_blogs(uname):
     
     return render_template("profile/blogs.html",user = user, blogs = blogs, blogs_count= blogs_count,date= user_joined)
 
+@main.route('/user/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
+
+    if user is None:
+        abort(404)
+
+    return render_template("profile/profile.html", user = user)
