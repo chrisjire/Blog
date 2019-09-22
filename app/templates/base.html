@@ -33,8 +33,14 @@
             {% endif %}
         {% endwith %}
 
+        <!-- Navbar block  --> 
+        {% block navbar %}
+        {% include 'navbar.html' %}
+        {% endblock %}
 
-    <body>
+    </head>
+
+    <body class="container-fluid">
         
         {% block content %}
                 

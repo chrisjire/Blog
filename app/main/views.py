@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for, abort  
 from . import main  
-from .forms import BlogForm, UpvoteForm
+from .forms import BlogForm
 from ..models import User 
 from flask_login import login_required, current_user
-from .. import db
+from ..__ini__ import db
 
 @main.route('/')
 def index():
