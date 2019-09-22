@@ -28,7 +28,6 @@
                 <ul class="nav navbar-nav navbar-right" >
                     {% if current_user.is_authenticated %}
                     <a class="navbar-brand nav-link dropdown-item" href="{{url_for('main.profile',uname=current_user.username)}}" style="color:black; font-weight:bolder; ">Profile</a></<a>
-                    <a class="navbar-brand nav-link dropdown-item" href="#" style="color:black; font-weight:bolder;">{{current_user.username}}</a></<a>
                     <a class="navbar-brand nav-link dropdown-item" href="{{url_for('auth.logout')}}" style="color:black; font-weight:bolder;">Logout</a></<a>
                     {% else %}
                     <a class="navbar-brand nav-link dropdown-item" href="{{url_for('auth.login')}}" style="color:black; font-weight:bolder;">Log in</a></<a>

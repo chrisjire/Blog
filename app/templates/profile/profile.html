@@ -19,7 +19,7 @@
 
 <div>
 {% if user == current_user %}
-    <a class="mt-2 pt-2 btn btn-outline-info" href="#">Edit profile</a>
+    <a class="mt-2 pt-2 btn btn-outline-info" href="{{url_for('main.update_profile',uname=user.username)}}">Edit profile</a>
 {% endif %}
 </div>
 <br>
@@ -27,13 +27,13 @@
 <div class="card">
 
 {% if user.profile_pic_path %}
-<img src="#" alt="" class="img-thumbnail card-img-top">
+<img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail card-img-top">
 {%else%}
 <p class="card-title">No profile picture</p>
 {% endif %}
 
 {% if user == current_user %}
-<form class="mt-2 pt-2"  action="#" method="post" enctype = "multipart/form-data">
+<form class="mt-2 pt-2"  action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype = "multipart/form-data">
 
 <input class="form-control-file" type="file"  name="photo" class="form-control" required>
 <input class="mt-2 pt-2 btn btn-outline-info" type="submit">

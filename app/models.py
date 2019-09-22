@@ -62,14 +62,17 @@ class Blog(db.Model):
         db.session.commit()
 
     @classmethod
-    def get_all_blogs(cls):
-        return Blog_query_all()
-
-    @classmethod
     def get_blog(cls,id):
         blog = Blog.query.filter_by(id=id).first()
 
         return blog
+    
+    @classmethod
+    def get_all_blogs(cls):
+        '''
+        Function that queries the database and returns all the pitches
+        '''
+        return Blog.query.all()
 
     @classmethod
     def count_blogs(cls,uname):
