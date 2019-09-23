@@ -36,3 +36,19 @@ You Require to install
 * You can also read other peoples blogs , comment on them and even vote for them
 
 * You can also update or delete your blogs 
+
+## Technology Used
+
+* Python v3.6
+* Bootstrap CDN
+* Flask
+
+### Contact Info:
+
+christianwilliamsjire@gmail.com
+
+## License
+
+this software license under MIT License
+
+Copyright (c) 2019 chris jire
