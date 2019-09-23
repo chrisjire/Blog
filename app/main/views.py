@@ -1,20 +1,34 @@
-from flask import render_template, request, redirect, url_for, abort  
+from flask import render_template, request, redirect,flash, url_for, abort  
 from . import main  
 from .forms import BlogForm, CommentForm, UpdateProfile
 from ..models import User, Comment , Blog
 from flask_login import login_required, current_user
 from .. import db, photos
 import datetime
+from ..requests import getQuotes
 
 @main.route('/')
 def index():
+    blogs = Blog.query.all()
     '''
     View root page function that returns the index page and its data
     '''
     title = 'Home - Welcome to The best Blog Website Online'
+    quote = getQuotes()
+    quote1 = getQuotes()
+    quote2 = getQuotes()
+    quote3 = getQuotes()
+    # quote4 = getQuotes()
+    # quote5 = getQuotes()
+    # quote6 = getQuotes()
+    # quote7 = getQuotes()
+    # quote8 = getQuotes()
+    # quote9 = getQuotes()
+    # quote10 = getQuotes()
+    # quote11 = getQuotes()
 
 
-    return render_template('index.html', title = title)
+    return render_template('index.html', title = title, blogs=blogs, quote=quote ,quote1=quote1,quote2=quote2,quote3=quote3 )
 
 @main.route('/blog/new', methods = ['GET','POST'])
 @login_required
@@ -115,3 +129,33 @@ def update_pic(uname):
         user.profile_pic_path = path 
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+@main.route("/blog/<int:id>/update",methods = ['GET','POST'])
+@login_required
+def update_blog(id):
+    blog = Blog.query.get_or_404(id)
+    if blog.username != current_user.username:
+        abort(403)
+    blog_form = BlogForm()
+    if blog_form.validate_on_submit():
+        blog.blog_title = blog_form.title.data
+        blog.blog_content = blog_form.text.data
+        db.session.commit()
+        flash('Your blog has been updated!', 'success')
+        return redirect(url_for('main.blog', id=blog.id))
+    elif request.method == 'GET':
+        blog_form.title.data = blog.blog_title
+        blog_form.text.data = blog.blog_content
+    
+    return render_template('new_blog.html',title = 'Update Blog',blog_form=blog_form )
+
+@main.route("/blog/<int:id>/delete", methods=['POST'])
+@login_required
+def delete_blog(id):
+    blog = Blog.query.get_or_404(id)
+    if blog.username != current_user.username:
+        abort(403)
+    db.session.delete(blog)
+    db.session.commit()
+    flash('Your post has been deleted!', 'success')
+    return redirect(url_for('main.index'))

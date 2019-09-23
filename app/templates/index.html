@@ -1,23 +1,51 @@
 {% extends 'base.html' %}
 {% import 'macros.html' as macro %}
+{% from 'macros.html' import displayBlogs as db%}
 <!-- Styles block -->
 
 
 <!-- Content block -->
 {%block content%}
-<div class="jumbotron text-center" style="color: black; padding: 55px 25px; font-family: 'Monoton', cursive;">
-    <h1>Blog Shop</h1>
-</div>
+<div class="container-fluid text-center" style="background-image: url(https://images.unsplash.com/photo-1507120410856-1f35574c3b45?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80); background-repeat: no-repeat; background-size: cover; background-position: center center; color: white; padding: 55px 25px; font-family: 'Monoton', cursive; height: 950px;">
+    <h1 style="font-size: 100px;">The Daily Blog</h1>
 
-<div class="all-blogs">
-        <span style="color:gainsboro;">All  are displayed below</span>
-            <hr> 
-
-            {{macro.displayBlogs(blogs)}}
+    <div >
+        <a href="{{url_for('main.new_blog')}}" class="btn purple-gradient waves-effect" style="margin-left: 480px; font-size: 25px; margin-top: 25%; margin-right: 500px">Write Blog</a>
     </div>
-<div class="container" style="padding-bottom: 20px;">
-    <a href="{{url_for('main.new_blog')}}" class="btn btn-success">Write Blog</a>
+        
 </div>
-
+<br>
+<br>
+<div class="container-fluid" style="background-image: url(https://images.unsplash.com/photo-1490358930084-2d26f21dc211?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+<div class="row" style="margin-left: 40%">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
+        <br>
+        <br>
+        <div class="card">
+            <h4 class="card-header">{{ quote.author }}</h4>
+            <p class="card-body">{{ quote.quote }}</p>
+        </div>
+        <br>
+        <br>
+        <div class="card">
+            <h4 class="card-header">{{ quote1.author }}</h4>
+            <p class="card-body">{{ quote1.quote }}</p>
+        </div>
+        <br>
+        <br>
+        <div class="card">
+            <h4 class="card-header">{{ quote2.author }}</h4>
+            <p class="card-body">{{ quote2.quote }}</p>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+</div>
+<div class="jumbotron">
+<div class="row">
+    {{db(blogs)}}
+</div>
+</div>
 
 {%endblock%}

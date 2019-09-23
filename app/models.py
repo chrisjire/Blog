@@ -102,3 +102,10 @@ class Comment(db.Model):
     def get_comments(cls,blog):
         comments = Comment.query.filter_by(blog_id=blog).all()
         return comments
+    
+class Quotes():
+    def __init__ (self,author,quote,permalink):
+        self.author = author
+        self.quote = quote
+        self.permalink = permalink
+    

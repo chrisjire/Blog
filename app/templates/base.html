@@ -17,6 +17,7 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.9/js/mdb.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
 
         {% if title %}
         <title> {{ title }}</title>
@@ -33,12 +34,12 @@
             {% endif %}
         {% endwith %}
 
-        
-    </head>
     <!-- Navbar block  --> 
     {% block navbar %}
     {% include 'navbar.html' %}
     {% endblock %}
+    </head>
+    
 
     <body class="container-fluid">
         
