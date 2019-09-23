@@ -16,3 +16,9 @@ You Require to install
 * Flask
 * Pip
 * Virtual environment
+
+## Getting started
+
+* Clone repository to your computer
+* Install python
+* Create virtual environment
