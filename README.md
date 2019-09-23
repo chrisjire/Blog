@@ -22,3 +22,17 @@ You Require to install
 * Clone repository to your computer
 * Install python
 * Create virtual environment
+
+## How it works
+
+* When you get into the app create an account by signing up
+
+* After signing up log in using your email and password
+
+* Once you have logged in go to your profile where you have the option to add a profile picture and your bio
+
+* After your done updating your details you can go to the home page where you will have the choice to add your own blog
+
+* You can also read other peoples blogs , comment on them and even vote for them
+
+* You can also update or delete your blogs 
